@@ -1,0 +1,12 @@
+[
+    {
+        "title":"Name",
+        "field":"name"
+    },
+    {   "title":"Age",
+        "field":"age"
+    },
+    {   "title":"Email",
+        "field":"email"
+    }
+]
