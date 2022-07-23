@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import {Formik,Form} from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup';
 import FormikControl from '../formik-element/FormikControl';
-import  axios  from 'axios';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ToastMsg from '../common/toastmsg';
 
 const Registration = () => {
 
-    const initialValues = {userName : '',password:'',confirmPassword:'',mobileNo:'',email : '',
-                            roles:[]};
+    // const diffToast = () => {
+    //     toast("Login Successfull");
+    // }
 
-    const [roleOptions,setRoleOptions] = useState([]);
-    const [roles,setRoles] = useState([]);
+    const initialValues = {
+        userName: '', password: '', confirmPassword: '', mobileNo: '', email: '',
+        roles: []
+    };
+
+    const [roleOptions, setRoleOptions] = useState([]);
+    const [roles, setRoles] = useState([]);
 
     const getRoles = () => {
 
-        axios.get("http://localhost:8095/roles").then( response => {
+        axios.get("http://localhost:8095/roles").then(response => {
             let rolesTempArr = [];
             let filterdRoles = [];
             let fetchedRoles = response.data;
@@ -25,8 +33,8 @@ const Registration = () => {
                 role.value = roleItr.id;
                 rolesTempArr.push(role);
             });
-            filterdRoles = fetchedRoles.map( role => {
-                return {id : role.id};
+            filterdRoles = fetchedRoles.map(role => {
+                return { id: role.id };
             })
             setRoles(filterdRoles);
             setRoleOptions(rolesTempArr);
@@ -34,66 +42,74 @@ const Registration = () => {
 
     }
 
-    
-    useEffect( () => {
+
+    useEffect(() => {
         getRoles();
-    },[])
-  
+    }, [])
+
     const validationSchema = Yup.object({
-        'userName' : Yup.string().required('Name can not be empty'),
-        'password' : Yup.string().required('Password can not be empty'),
-        'confirmPassword' : Yup.string().oneOf([Yup.ref('password'),''],'Password must match').required('Required'),
-        'mobileNo' : Yup.string().required('Mobile No can not be empty'),
-        'email' : Yup.string().email('Invalid Email Format').required('Email can not be empty'),
-        "roles" : Yup.array().required('Required')
+        'userName': Yup.string().required('Name can not be empty'),
+        'password': Yup.string().required('Password can not be empty'),
+        'confirmPassword': Yup.string().oneOf([Yup.ref('password'), ''], 'Password must match').required('Required'),
+        'mobileNo': Yup.string().required('Mobile No can not be empty'),
+        'email': Yup.string().email('Invalid Email Format').required('Email can not be empty'),
+        "roles": Yup.array().required('Required')
     });
-    const onSubmit = (formValues,onSubmitProps) => {
-        let user = {...formValues};
-        let selectedRoles = formValues.roles.map( roleId => {
+    const onSubmit = (formValues, onSubmitProps) => {
+        let user = { ...formValues };
+        let selectedRoles = formValues.roles.map(roleId => {
             console.log(roles);
-            return roles.find( role => role.id == roleId);
+            return roles.find(role => role.id == roleId);
         })
         user.roles = selectedRoles;
 
         onSubmitProps.resetForm();
+        // showLoader()
         // <ToastMsg msg="" />
         //initialValues.roles = []
         getRoles();
 
-        axios.post("http://localhost:8095/registration",user)
-                .then( res => {
-                    console.log(res);
-                    onSubmitProps.resetForm();
-                    initialValues.roles = []
-                    getRoles();
-                    //setRoleOptions([]);
-                })
+        axios.post("http://localhost:8095/registration", user)
+            .then(res => {
+                console.log(res);
+                // hideLoader();
+                toast("Login Successfull");
+                onSubmitProps.resetForm();
+                initialValues.roles = []
+                getRoles();
+                //setRoleOptions([]);
+            })
 
         console.log(user);
     }
 
-    return (<Formik enableReinitialize 
-                    initialValues={initialValues}
-                    validationSchema = {validationSchema}
-                    onSubmit = {onSubmit}>
+    return (<Formik enableReinitialize
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}>
         {
-            (formik) => 
-            <div className="col-md-4">
-                <Form>
-                    <FormikControl control="input" type="text" name="userName" label="User Name"/>
-                    <FormikControl control="input" type="password" name="password" label="Password"/>
-                    <FormikControl control="input" type="password" name="confirmPassword" label="Confirm Password"/>
-                    <FormikControl control="input" type="text" name="email" label="Email"/>
-                    <FormikControl control="input" type="text" name="mobileNo" label="Mobile No"/>
-                    <FormikControl control="checkbox"  name="roles" 
-                        label="Roles" options={roleOptions}/>
-                    {/* <FormikControl control="date"  name="birthDate" 
+            (formik) =>
+                <div className="col-md-4">
+                    <Form>
+                        <FormikControl control="input" type="text" name="userName" label="User Name" />
+                        <FormikControl control="input" type="password" name="password" label="Password" />
+                        <FormikControl control="input" type="password" name="confirmPassword" label="Confirm Password" />
+                        <FormikControl control="input" type="text" name="email" label="Email" />
+                        <FormikControl control="input" type="text" name="mobileNo" label="Mobile No" />
+                        <FormikControl control="checkbox" name="roles"
+                            label="Roles" options={roleOptions} />
+                        {/* <FormikControl control="date"  name="birthDate" 
                         label="Pick a date"/> */}
-                    <button type="submit" className="btn btn-lg btn-primary">Submit</button>
-                </Form>
-            </div>
+                        <button type="submit"
+                            disabled={!(formik.dirty && formik.isValid)}
+                            className="btn btn-lg btn-primary" >Submit</button>
+                        <ToastContainer />
+                    </Form>
+                </div>
         }
-    </Formik>  );
+
+    </Formik>);
+
 }
- 
+
 export default Registration;

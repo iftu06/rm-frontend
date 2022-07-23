@@ -12,41 +12,41 @@ import Users from "./user/users";
 import Product from "./product/product";
 import FormikContainer from "./formik-element/FormikContainer"
 import Registration from "./auth/Registration";
-import Home from "./home/home";
+// import Home from "./home/home";
 
 class App extends Component {
   state = {
-    token : ''
+    token: ''
   };
 
- 
+
   handleLogin = () => {
     console.log("i am called");
-    let token = localStorage.getItem("token"); 
+    let token = localStorage.getItem("token");
     console.log(token);
-    this.setState({token});
+    this.setState({ token });
   }
 
   handleLogout = () => {
     console.log("I am honoured");
     localStorage.clear();
-    this.setState({token : null});
+    this.setState({ token: null });
     window.location = "http://localhost:3000/home";
   }
 
   render() {
     return (
       <React.Fragment>
-        <Navbar  handleLogout = {this.handleLogout} token={this.state.token}/>
+        <Navbar handleLogout={this.handleLogout} token={this.state.token} />
         <main className="content">
           <Switch>
-            <Route path="/home" component={Home} />
+            {/* <Route path="/home" component={Home} /> */}
             <Route path="/menus" component={Menus} />
             <Route path="/menu" component={Menu} />
 
-            <Route path="/login" 
-                   render = { props => <Login {...props} handleLogin={this.handleLogin} some="jjj"
-                                               handleLogout = {this.handleLogout}/>}/>
+            <Route path="/login"
+              render={props => <Login {...props} handleLogin={this.handleLogin} some="jjj"
+                handleLogout={this.handleLogout} />} />
 
             <Route path="/register" component={Registration} />
             {/* <Route path="/users" component={UserList} /> */}
