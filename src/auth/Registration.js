@@ -6,20 +6,24 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ToastMsg from '../common/toastmsg';
+import Spinner from 'react-bootstrap/Spinner';
+import './Registration.css';
+import Roles from './Roles';
 
 const Registration = () => {
 
     // const diffToast = () => {
     //     toast("Login Successfull");
     // }
-
     const initialValues = {
         userName: '', password: '', confirmPassword: '', mobileNo: '', email: '',
         roles: []
     };
 
-    const [roleOptions, setRoleOptions] = useState([]);
+    const [roleOptions, setRoleOptions] = useState(['admin', 'user']);
     const [roles, setRoles] = useState([]);
+
+    const [isLoading, setLoading] = useState(false);
 
     const getRoles = () => {
 
@@ -64,6 +68,7 @@ const Registration = () => {
         user.roles = selectedRoles;
 
         onSubmitProps.resetForm();
+        setLoading(true);
         // showLoader()
         // <ToastMsg msg="" />
         //initialValues.roles = []
@@ -72,6 +77,7 @@ const Registration = () => {
         axios.post("http://localhost:8095/registration", user)
             .then(res => {
                 console.log(res);
+                setLoading(false)
                 // hideLoader();
                 toast("Login Successfull");
                 onSubmitProps.resetForm();
@@ -90,21 +96,24 @@ const Registration = () => {
         {
             (formik) =>
                 <div className="col-md-4">
-                    <Form>
+                    {!isLoading && <Form>
                         <FormikControl control="input" type="text" name="userName" label="User Name" />
                         <FormikControl control="input" type="password" name="password" label="Password" />
                         <FormikControl control="input" type="password" name="confirmPassword" label="Confirm Password" />
                         <FormikControl control="input" type="text" name="email" label="Email" />
                         <FormikControl control="input" type="text" name="mobileNo" label="Mobile No" />
                         <FormikControl control="checkbox" name="roles"
-                            label="Roles" options={roleOptions} />
+                            label="Roles" options={roleOptions}
+                        />
                         {/* <FormikControl control="date"  name="birthDate" 
                         label="Pick a date"/> */}
+                        <Roles></Roles>
                         <button type="submit"
                             disabled={!(formik.dirty && formik.isValid)}
                             className="btn btn-lg btn-primary" >Submit</button>
                         <ToastContainer />
-                    </Form>
+                    </Form>}
+                    {isLoading && <Spinner className="loader" animation="border" variant="primary" />}
                 </div>
         }
 
