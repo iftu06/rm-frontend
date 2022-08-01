@@ -9,6 +9,7 @@ import ToastMsg from '../common/toastmsg';
 import Spinner from 'react-bootstrap/Spinner';
 import './Registration.css';
 import Roles from './Roles';
+import Modalform from './Modalform';
 
 const Registration = () => {
 
@@ -105,9 +106,10 @@ const Registration = () => {
                         <FormikControl control="checkbox" name="roles"
                             label="Roles" options={roleOptions}
                         />
+                        <Modalform></Modalform>
+                        <br /> <br />
                         {/* <FormikControl control="date"  name="birthDate" 
                         label="Pick a date"/> */}
-                        <Roles></Roles>
                         <button type="submit"
                             disabled={!(formik.dirty && formik.isValid)}
                             className="btn btn-lg btn-primary" >Submit</button>
