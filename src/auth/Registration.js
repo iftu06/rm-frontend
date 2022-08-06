@@ -120,6 +120,7 @@ const Registration = () => {
 
                         <Button variant="primary" onClick={() => openModal(true)}>Add Role</Button> 
 
+                       
                         <button type="submit"
                             disabled={!(formik.dirty && formik.isValid)}
                             className="btn btn-lg btn-primary" >Submit</button>

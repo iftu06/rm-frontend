@@ -12,6 +12,8 @@ import Users from "./user/users";
 import Product from "./product/product";
 import FormikContainer from "./formik-element/FormikContainer"
 import Registration from "./auth/Registration";
+import Roles from "./auth/Roles";
+import Modalform from "./auth/Modalform";
 // import Home from "./home/home";
 
 class App extends Component {
@@ -51,6 +53,7 @@ class App extends Component {
             <Route path="/register" component={Registration} />
             {/* <Route path="/users" component={UserList} /> */}
             <Route path="/users" component={Users} />
+            <Route path="/modal-form" component={Modalform} />
             <Route path="/product" component={FormikContainer} />
             <Route path="/not-found" component={NotFound} />
             <Redirect to="/not-found" />

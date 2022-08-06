@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Navbar = (props) => {
   const token = props.token;
   return (
-    
+
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
         Navbar
@@ -51,32 +51,37 @@ const Navbar = (props) => {
               Registration
             </Link>
           </li>
-
-        {
-           token ?  
           <li className="nav-item">
-            <Link className="nav-link" to="/users">
-              User List
+            <Link className="nav-link" to="/modal-form">
+              Roles
             </Link>
-          </li> : null
+          </li>
 
-        }
+          {
+            token ?
+              <li className="nav-item">
+                <Link className="nav-link" to="/users">
+                  User List
+                </Link>
+              </li> : null
 
-          { 
-          token ?  
-          <li className="nav-item">
-            <Link className="nav-link"  onClick={props.handleLogout} to="#">
-              Logout
-            </Link>
-          </li> : 
+          }
 
-        <li className="nav-item">
-        <Link className="nav-link" to="/login">
-          Login
-        </Link>
-        </li>
+          {
+            token ?
+              <li className="nav-item">
+                <Link className="nav-link" onClick={props.handleLogout} to="#">
+                  Logout
+                </Link>
+              </li> :
 
-          }   
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+              </li>
+
+          }
 
 
         </ul>
