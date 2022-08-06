@@ -48,11 +48,18 @@ const Registration = () => {
 
     // }
 
+    const hideModal = () => {
+        openModal(false);
+    }
+
 
     useEffect(() => {
-        //  getRoles();
-        // openModal(true);
-    }, [isModalOpen])
+       
+    }, [])
+
+    const showModal = () => {
+        openModal(true);
+    }
 
     const validationSchema = Yup.object({
         // 'userName': Yup.string().required('Name can not be empty'),
@@ -102,7 +109,9 @@ const Registration = () => {
         {
             (formik) =>
                 <div className="col-md-4">
-                    <CustomModal render={() => <Roles></Roles>} modalHeader={"Add Role"} showModal={isModalOpen}>
+                    <CustomModal render={() => <Roles></Roles>}
+                     modalHeader="Add Role" showModal={isModalOpen}
+                     hideModal={hideModal}>
 
                     </CustomModal>
                     {!isLoading && <Form>
@@ -118,7 +127,7 @@ const Registration = () => {
                     
 
 
-                        <Button variant="primary" onClick={() => openModal(true)}>Add Role</Button> 
+                        <Button variant="primary" onClick={showModal}>Add Role</Button> 
 
                        
                         <button type="submit"
