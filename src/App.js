@@ -14,6 +14,7 @@ import FormikContainer from "./formik-element/FormikContainer"
 import Registration from "./auth/Registration";
 import Roles from "./auth/Roles";
 import Modalform from "./auth/Modalform";
+import addProduct from "./auth/addProduct";
 // import Home from "./home/home";
 
 class App extends Component {
@@ -51,6 +52,7 @@ class App extends Component {
                 handleLogout={this.handleLogout} />} />
 
             <Route path="/register" component={Registration} />
+            <Route path="/addProduct" component={addProduct} />
             {/* <Route path="/users" component={UserList} /> */}
             <Route path="/users" component={Users} />
             <Route path="/modal-form" component={Modalform} />

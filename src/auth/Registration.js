@@ -54,7 +54,7 @@ const Registration = () => {
 
 
     useEffect(() => {
-       
+
     }, [])
 
     const showModal = () => {
@@ -110,8 +110,8 @@ const Registration = () => {
             (formik) =>
                 <div className="col-md-4">
                     <CustomModal render={() => <Roles></Roles>}
-                     modalHeader="Add Role" showModal={isModalOpen}
-                     hideModal={hideModal}>
+                        modalHeader="Add Role" showModal={isModalOpen}
+                        hideModal={hideModal}>
 
                     </CustomModal>
                     {!isLoading && <Form>
@@ -124,12 +124,12 @@ const Registration = () => {
                             label="Roles" options={roleOptions}
                         /> */}
 
-                    
 
 
-                        <Button variant="primary" onClick={showModal}>Add Role</Button> 
 
-                       
+                        <Button variant="primary" onClick={showModal}>Add Role</Button>
+
+
                         <button type="submit"
                             disabled={!(formik.dirty && formik.isValid)}
                             className="btn btn-lg btn-primary" >Submit</button>

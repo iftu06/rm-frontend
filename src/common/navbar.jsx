@@ -56,6 +56,11 @@ const Navbar = (props) => {
               Roles
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/addProduct">
+              Add Product
+            </Link>
+          </li>
 
           {
             token ?
