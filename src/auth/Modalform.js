@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import Category from './category';
 import Roles from './Roles';
 
 const Modalform = () => {
     const [show, setShow] = useState(false);
     return (
         <>
-            <Button variant="primary" onClick={() => setShow(true)}>
+            {/* <Button variant="primary" onClick={() => setShow(true)}>
                 Add Roles
-            </Button>
+            </Button> */}
 
             <Modal
                 show={show}
@@ -23,7 +24,7 @@ const Modalform = () => {
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        <Roles></Roles>
+
                     }
                 </Modal.Body>
             </Modal>

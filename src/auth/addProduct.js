@@ -3,14 +3,26 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../formik-element/FormikControl";
 import CustomModal from "../common/CustomModal";
-import Roles from "./Roles";
 import { Button } from "react-bootstrap";
+import axios from "axios";
+import Category from "./Category";
+
 
 const AddProduct = () => {
   const initialValues = {
     name: "",
     price: "",
   };
+  const onSubmit = data => {
+    console.log(data);
+    axios.post('http://localhost:8095/AddProduct', data)
+      .then(res => {
+        if (res.data.insertedId) {
+          alert('Added Successfully');
+        }
+      })
+  }
+
 
   const [isModalOpen, openModal] = useState(false);
 
@@ -18,7 +30,7 @@ const AddProduct = () => {
     openModal(false);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const showModal = () => {
     openModal(true);
@@ -43,7 +55,7 @@ const AddProduct = () => {
       >
         <Form className="col-md-4">
           <CustomModal
-            render={() => <Roles></Roles>}
+            render={() => <Category></Category>}
             modalHeader="Add Category"
             showModal={isModalOpen}
             hideModal={hideModal}
