@@ -24,7 +24,7 @@ const Modalform = () => {
                 </Modal.Header>
                 <Modal.Body>
                     {
-
+                        <Roles></Roles>
                     }
                 </Modal.Body>
             </Modal>
