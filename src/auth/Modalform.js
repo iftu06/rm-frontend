@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import Category from './category';
 import Roles from './Roles';
 
 const Modalform = () => {
